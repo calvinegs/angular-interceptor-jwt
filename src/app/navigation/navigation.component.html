@@ -30,9 +30,9 @@
         <mat-icon>bedtime</mat-icon>
       </div>
       <ng-template #LightTheme>
-        <div *ngIf="!this.isDarkTheme">
+        <!-- <div *ngIf="!this.isDarkTheme"> -->
           <mat-icon>wb_sunny</mat-icon>
-        </div>
+        <!-- </div> -->
       </ng-template>
       <mat-slide-toggle [(ngModel)]="isDarkTheme" (change)="storeThemeSelection()">
       </mat-slide-toggle>
