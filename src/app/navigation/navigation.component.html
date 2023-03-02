@@ -1,0 +1,57 @@
+<ng-container *ngIf="loading$ | async">
+  <div class="overlay"></div>
+  <mat-spinner></mat-spinner>
+</ng-container>
+<mat-sidenav-container class="sidenav-container mat-app-background" [ngClass]="{'dark-theme-mode':isDarkTheme}">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>功能列</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/flexbox">flex box</a>
+      <a mat-list-item routerLink="/getdata">loading spinner</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>簡易的 admin template</span>
+      <span class="ext-space"></span>
+      <div *ngIf="this.isDarkTheme; else LightTheme">
+        <mat-icon>bedtime</mat-icon>
+      </div>
+      <ng-template #LightTheme>
+        <div *ngIf="!this.isDarkTheme">
+          <mat-icon>wb_sunny</mat-icon>
+        </div>
+      </ng-template>
+      <mat-slide-toggle [(ngModel)]="isDarkTheme" (change)="storeThemeSelection()">
+      </mat-slide-toggle>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Options">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()" [disabled]="!(isLogin$ | async)">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+        <button mat-menu-item (click)="login()" [disabled]="isLogin$ |async">
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

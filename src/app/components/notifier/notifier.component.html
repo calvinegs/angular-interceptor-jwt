@@ -1,0 +1,11 @@
+<div>
+    {{data.messageType}}
+</div>
+<div class="content-style">
+    {{data.message}}
+</div>
+<div class="button-style">
+    <button mat-flat-button [ngClass]=data.messageType (click)="snackBarRef.dismiss()">
+        {{data.buttonText}}
+    </button>
+</div>
